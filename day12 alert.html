@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Method Notifications</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #e66ce2, #8decf1);
+      text-align: center;
+    }
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .bubbles span {
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      bottom: -150px;
+      animation: rise 10s infinite;
+    }
+
+    .bubbles span:nth-child(1) { left: 10%; width: 25px; height: 25px; animation-duration: 8s; }
+    .bubbles span:nth-child(2) { left: 25%; width: 20px; height: 20px; animation-duration: 11s; }
+    .bubbles span:nth-child(3) { left: 40%; width: 30px; height: 30px; animation-duration: 10s; }
+    .bubbles span:nth-child(4) { left: 55%; width: 15px; height: 15px; animation-duration: 13s; }
+    .bubbles span:nth-child(5) { left: 70%; width: 40px; height: 40px; animation-duration: 9s; }
+    .bubbles span:nth-child(6) { left: 85%; width: 20px; height: 20px; animation-duration: 12s; }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-1000px) scale(1.5); opacity: 0; }
+    }
+    h1 {
+      color: rgb(249, 13, 25);
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #121211;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .alert {
+      margin: 8px 0;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: 1px solid;
+      width: 340px;
+      text-align: center;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      background: white;
+    }
+
+    .success { color: #2e7d32; border-color: #2e7d32; }
+    .error   { color: #c62828; border-color: #c62828; }
+    .info    { color: #1565c0; border-color: #1565c0; }
+    .warning { color: #ff8f00; border-color: #ff8f00; }
+    .reminder{ color: #6a1b9a; border-color: #6a1b9a; }
+  </style>
+</head>
+<body>
+  <div class="bubbles">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+  <h1> Payment Alerts</h1>
+  <p>Instant updates about your transactions and account status.</p>
+  <div class="alert success">
+     Payment of <b>₹2,500</b> using UPI was successful!
+  </div>
+  <div class="alert error">
+     Transaction failed! Your debit card is declined.
+  </div>
+  <div class="alert info">
+     Your payment of <b>₹799</b> is processing... Please wait.
+  </div>
+  <div class="alert warning">
+     Low wallet balance! Add funds to complete transactions.
+  </div>
+  <div class="alert reminder">
+     EMI Reminder: ₹1,200 due on <b>10th Sept, 2025</b>.
+  </div>
+
+</body>
+</html>
