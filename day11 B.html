@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Phone Sale Ad</title>
+  <style>
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg,#0b1226,#1b3a8a);
+      color: #fff;
+      overflow:hidden;
+    }
+    .bubbles{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+    }
+    .bubbles span{
+      position:absolute;
+      bottom:-120px;
+      background: rgba(255,255,255,0.15);
+      border-radius:50%;
+      animation: rise 12s linear infinite;
+    }
+    .bubbles span:nth-child(1){ left:12%; width:40px; height:40px; animation-duration:11s; }
+    .bubbles span:nth-child(2){ left:28%; width:22px; height:22px; animation-duration:9s;  animation-delay:1s; }
+    .bubbles span:nth-child(3){ left:46%; width:55px; height:55px; animation-duration:14s; animation-delay:3s; }
+    .bubbles span:nth-child(4){ left:62%; width:28px; height:28px; animation-duration:10s; animation-delay:2s; }
+    .bubbles span:nth-child(5){ left:78%; width:44px; height:44px; animation-duration:13s; animation-delay:4s; }
+
+    @keyframes rise{
+      0%   { transform: translateY(0); opacity:0.3; }
+      50%  { opacity:0.8; }
+      100% { transform: translateY(-110vh); opacity:0; }
+    }
+    .card{
+      position:relative;
+      z-index:1;
+      width: min(760px, 92vw);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius:16px;
+      padding:18px;
+      display:flex;
+      gap:16px;
+      align-items:center;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    }
+    @media (max-width:640px){
+      .card{ flex-direction:column; padding:14px; }
+    }
+
+    .left{ flex:1; display:grid; place-items:center; }
+    .left img{
+      width:86%; max-width:260px;
+      border-radius:12px;
+    }
+
+    .right{ flex:1; }
+    .title{ margin:0 0 6px 0; font-size:1.6rem; }
+    .desc{ margin:0 0 12px 0; font-size:1rem; opacity:0.9; }
+    .priceRow{ display:flex; gap:12px; margin-bottom:12px; align-items:baseline; }
+    .price{ font-size:1.6rem; font-weight:800; }
+    .mrp{ font-size:0.95rem; text-decoration:line-through; opacity:0.7; }
+
+    .buttons{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn{
+      padding:10px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:700;
+      border:0;
+      cursor:pointer;
+    }
+    .buy{ background:#38bdf8; color:#021225; }
+    .info{ background:transparent; border:1px solid rgba(255,255,255,0.18); color:#fff; }
+
+    .small{ margin-top:10px; font-size:0.85rem; opacity:0.9; }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="card">
+    <div class="left">
+      <img src="phn.jpg" alt="Androidphone">
+    </div>
+    <div class="right">
+      <h2 class="title">🔥 SuperPhone Redmi125G</h2>
+      <p class="desc">6.7" Display • 128GB Storage • 5000mAh Battery • 5G Ready</p>
+      <div class="priceRow">
+        <div class="price">₹24,999</div>
+        <div class="mrp">₹29,999</div>
+      </div>
+      <div class="buttons">
+        <a href="#" class="btn buy">Buy Now</a>
+        <a href="#" class="btn info">Learn More</a>
+      </div>
+      <div class="small">✓ Free delivery • ✓ 1 Year Warranty • ✓ Easy EMI</div>
+    </div>
+  </div>
+
+</body>
+</html>
