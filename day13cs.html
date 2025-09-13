@@ -1,0 +1,114 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); 
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two Product Layout</title>
+  <style>
+    
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #f9f9f9;
+    }
+    .product-card {
+      background-color: white;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .product-card img {
+      max-width: 100%; 
+      height: auto;
+      border-radius: 5px;
+    }
+    .product-card h3 {
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 10px 0;
+    }
+    .product-card p {
+      color: #666;
+      font-size: 16px;
+    }
+    .product-card button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .product-card button:hover {
+      background-color: #218838;
+    }
+    
+    @media (max-width: 500px) {
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="product-container">
+    <div class="product-card">
+      <img src="smart.jpeg" alt="Product 1">
+      <h3>Product 1</h3>
+      <p>$2900.99</p>
+      <button>Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="mp.jpg" alt="Product 2">
+      <h3>Product 2</h3>
+      <p>$15,000.10</p>
+      <button>Add to Cart</button>
+    </div>
+  </div>
+</body>
+</html>

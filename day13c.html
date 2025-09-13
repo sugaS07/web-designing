@@ -1,0 +1,85 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+               
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+               
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+  
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); 
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Variables for Beginners</title>
+  <style>
+   
+    :root {
+      --main-color: #007bff;
+      --secondary-color: #6c757d; 
+      --font-size-large: 24px;
+      --padding-standard: 15px;
+    }
+    .var-container {
+      background-color: var(--main-color);
+      color: white;
+      font-size: var(--font-size-large);
+      padding: var(--padding-standard);
+      margin: 20px;
+      text-align: center;
+      border-radius: 8px;
+    }
+    .var-button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: var(--padding-standard);
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .var-button:hover {
+      background-color: darken(var(--secondary-color), 10%);
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="var-container">
+    This div uses CSS variables for styling!
+    <button class="var-button">Click Me</button>
+  </div>
+</body>
+</html>
